@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">React Shoe Shop</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -24,11 +24,11 @@ function App() {
         </Container>
       </Navbar>
       <Carousel>
-        <Carousel.Item>
+        <Carousel.Item className="background">
           <img
-            className="d-block w-100"
-            src="holder.js/800x400?text=First slide&bg=373940"
-            alt="First slide"
+            className="d-block background_1"
+          // src="./background.jpg"
+          // alt="First slide"
           />
           <Carousel.Caption>
             <h3>First slide label</h3>
@@ -37,9 +37,9 @@ function App() {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            className="d-block w-100"
-            src="holder.js/800x400?text=Second slide&bg=282c34"
-            alt="Second slide"
+            className="d-block background_2"
+          // src="holder.js/800x400?text=Second slide&bg=282c34"
+          // alt="Second slide"
           />
 
           <Carousel.Caption>
@@ -49,9 +49,9 @@ function App() {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            className="d-block w-100"
-            src="holder.js/800x400?text=Third slide&bg=20232a"
-            alt="Third slide"
+            className="d-block background_3"
+          // src="holder.js/800x400?text=Third slide&bg=20232a"
+          // alt="Third slide"
           />
 
           <Carousel.Caption>
@@ -60,6 +60,27 @@ function App() {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+            <h4> 상품명 </h4>
+            <p> 상품설명 & 가격 </p>
+          </div>
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="100%" />
+            <h4> 상품명 </h4>
+            <p> 상품설명 & 가격 </p>
+
+          </div>
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="100%" />
+            <h4> 상품명 </h4>
+            <p> 상품설명 & 가격 </p>
+
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

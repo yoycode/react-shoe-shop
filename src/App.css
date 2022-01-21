@@ -1,6 +1,22 @@
 .App {
   text-align: center;
 }
+.background_1 {
+  /* src폴더에 있음 -> ./로 시작 */
+  background-image: url('./background_1.jpg');  
+  background-size: cover;
+  height:13rem
+}
+.background_2 {
+  background-image: url('./background_2.jpg');  
+  background-size: cover;
+  height:13rem
+}
+.background_3 {
+  background-image: url('./background_3.jpg');  
+  background-size: cover;
+  height:13rem
+}
 
 .App-logo {
   height: 40vmin;
