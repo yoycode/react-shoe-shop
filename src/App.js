@@ -1,7 +1,12 @@
+/*eslint-disable*/
+import React, { useState } from 'react'
 import { Navbar, Container, Nav, NavDropdown, Carousel } from 'react-bootstrap'
 import './App.css';
+import Data from './data.js';
+import Component from './Component';
 
 function App() {
+  let [shoes, setShoes] = useState(Data);
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -27,8 +32,8 @@ function App() {
         <Carousel.Item className="background">
           <img
             className="d-block background_1"
-          // src="./background.jpg"
-          // alt="First slide"
+            src="./background_1.jpg"
+            alt="First slide"
           />
           <Carousel.Caption>
             <h3>First slide label</h3>
@@ -38,8 +43,8 @@ function App() {
         <Carousel.Item>
           <img
             className="d-block background_2"
-          // src="holder.js/800x400?text=Second slide&bg=282c34"
-          // alt="Second slide"
+            src="./background_2.jpg"
+            alt="Second slide"
           />
 
           <Carousel.Caption>
@@ -50,8 +55,8 @@ function App() {
         <Carousel.Item>
           <img
             className="d-block background_3"
-          // src="holder.js/800x400?text=Third slide&bg=20232a"
-          // alt="Third slide"
+            src="./background_3.jpg"
+            alt="Third slide"
           />
 
           <Carousel.Caption>
@@ -60,25 +65,14 @@ function App() {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-            <h4> 상품명 </h4>
-            <p> 상품설명 & 가격 </p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="100%" />
-            <h4> 상품명 </h4>
-            <p> 상품설명 & 가격 </p>
-
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="100%" />
-            <h4> 상품명 </h4>
-            <p> 상품설명 & 가격 </p>
-
-          </div>
+          {
+            shoes.map((v, i) => {
+              return <Component shoes={v} i={i} key={i} />
+            })
+          }
         </div>
       </div>
     </div>
