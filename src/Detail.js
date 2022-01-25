@@ -1,8 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const Detail = (props) => {
-
+  let { id } = useParams()
+  let item = props.shoes.find(x => {
+    return x.id == id
+  });
   let history = useHistory();
 
   return (
@@ -12,9 +15,9 @@ const Detail = (props) => {
           <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
         </div>
         <div className="col-md-6 mt-4">
-          <h4 className="pt-5">{props.shoes[0].title}</h4>
-          <p>{props.shoes[0].content}</p>
-          <p>{props.shoes[0].price}</p>
+          <h4 className="pt-5">{item.title}</h4>
+          <p>{item.content}</p>
+          <p>{item.price}</p>
           <button className="btn btn-danger">주문하기</button>
           <button className="btn btn-danger" onClick={() => {
             history.goBack();
