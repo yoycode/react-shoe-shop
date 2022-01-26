@@ -5,6 +5,7 @@ import './App.css';
 import Data from './data.js';
 import Component from './Component';
 import Detail from './Detail';
+import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom'
 
@@ -18,8 +19,8 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link> <Link to="/">Home</Link></Nav.Link>
-              <Nav.Link> <Link to="/detail">Detail </Link></Nav.Link>
+              <Nav.Link as={Link} to="/">Home </Nav.Link>
+              <Nav.Link as={Link} to="/detail">Detail  </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -79,6 +80,16 @@ function App() {
                 })
               }
             </div>
+            <button className="btn btn-primary" onClick={() => {
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((res) => {
+                  console.log("성공했어요", res.data);
+                  setShoes([...shoes, ...res.data])
+                })
+                .catch((err) => {
+                  console.log("실패했어요", err)
+                })
+            }}>더보기</button>
           </div>
         </Route>
         <Route path="/detail/:id">

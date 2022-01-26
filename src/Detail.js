@@ -1,7 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+let Box = styled.div`
+  padding: 20px;
+`;
+let Title = styled.h4`
+  font-size: 25px;
+  color: ${props => props.color}
+`;
 
 const Detail = (props) => {
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+    return () => {
+      // when destory
+      clearTimeout(timer)
+    }
+  }, []);
+
+  let [alert, setAlert] = useState(true);
+
   let { id } = useParams()
   let item = props.shoes.find(x => {
     return x.id == id
@@ -10,6 +32,20 @@ const Detail = (props) => {
 
   return (
     <div className="container">
+      <Box>
+        <Title color='black'> Detail </Title>
+      </Box>
+
+      {
+        alert === true
+          ? (<div>
+            <p>재고가 얼마 남지 않았습니다 </p>
+          </div>)
+          : null
+      }
+
+
+
       <div className="row">
         <div className="col-md-6">
           <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
