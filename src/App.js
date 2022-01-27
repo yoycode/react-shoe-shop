@@ -5,6 +5,7 @@ import './App.css';
 import Data from './data.js';
 import Card from './Card';
 import Detail from './Detail';
+import Cart from './Cart';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom'
@@ -104,6 +105,10 @@ function App() {
           <inventoryContext.Provider value={inventory}>
             <Detail shoes={shoes} inventory={inventory} setInventory={setInventory} />
           </inventoryContext.Provider>
+        </Route>
+
+        <Route path="/cart">
+          <Cart></Cart>
         </Route>
       </Switch>
 
