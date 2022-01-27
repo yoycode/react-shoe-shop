@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { inventoryContext } from './App'
+import { Nav } from 'react-bootstrap'
+import { CSSTransition } from 'react-transition-group'
+import './Detail.css';
 
 let Box = styled.div`
   padding: 20px;
@@ -12,7 +15,17 @@ let Title = styled.h4`
 `;
 
 const Detail = (props) => {
+  let [alert, setAlert] = useState(true);
+  let { id } = useParams()
+  let item = props.shoes.find(x => {
+    return x.id == id
+  });
+  let history = useHistory();
+
   let inventory = useContext(inventoryContext);
+
+  let [tab, setTab] = useState(0);
+  let [switchTransition, setSwitchTransition] = useState(false);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -23,14 +36,6 @@ const Detail = (props) => {
       clearTimeout(timer)
     }
   }, []);
-
-  let [alert, setAlert] = useState(true);
-
-  let { id } = useParams()
-  let item = props.shoes.find(x => {
-    return x.id == id
-  });
-  let history = useHistory();
 
   return (
     <div className="container">
@@ -63,9 +68,43 @@ const Detail = (props) => {
           }}>뒤로가기</button>
         </div>
       </div>
-    </div>
+
+
+      <Nav className="mt-5" class-fill variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={() => { setTab(0); setSwitchTransition(false) }}>Active1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={() => { setTab(1); setSwitchTransition(false) }} >Active2</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-2" onClick={() => { setTab(2); setSwitchTransition(false) }} >Active3</Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <CSSTransition in={switchTransition} classNames="wow" timeout={500}>
+        <TabContent tab={tab} setSwitchTransition={setSwitchTransition} />
+      </CSSTransition>
+
+    </div >
   );
 };
+
+function TabContent(props) {
+
+  useEffect(() => {
+    props.setSwitchTransition(true);
+  })
+
+  if (props.tab === 0) {
+    return <div> 0번째 내용입니다</div>
+  } else if (props.tab === 1) {
+    return <div> 1번째 내용입니다</div>
+  } else if (props.tab === 2) {
+    return <div> 2번째 내용입니다</div>
+  }
+}
+
 
 function Info(props) {
   // let inventory = useContext(inventoryContext);
