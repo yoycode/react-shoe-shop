@@ -1,16 +1,20 @@
 /*eslint-disable*/
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Navbar, Container, Nav, NavDropdown, Carousel } from 'react-bootstrap'
 import './App.css';
 import Data from './data.js';
-import Component from './Component';
+import Card from './Card';
 import Detail from './Detail';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom'
 
+export let inventoryContext = React.createContext();
+
 function App() {
   let [shoes, setShoes] = useState(Data);
+  let [inventory, setInventory] = useState([10, 11, 12]);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -73,27 +77,33 @@ function App() {
             </Carousel.Item>
           </Carousel>
           <div className="container">
-            <div className="row">
-              {
-                shoes.map((v, i) => {
-                  return <Component shoes={v} i={i} key={i} />
-                })
-              }
-            </div>
+
+
+            <inventoryContext.Provider value={inventory}>
+              <div className="row">
+                {
+                  shoes.map((v, i) => {
+                    return <Card shoes={v} i={i} key={i} />
+                  })
+                }
+              </div>
+            </inventoryContext.Provider>
+
             <button className="btn btn-primary" onClick={() => {
               axios.get('https://codingapple1.github.io/shop/data2.json')
                 .then((res) => {
-                  console.log("성공했어요", res.data);
                   setShoes([...shoes, ...res.data])
                 })
                 .catch((err) => {
-                  console.log("실패했어요", err)
+                  console.error(err)
                 })
             }}>더보기</button>
           </div>
         </Route>
         <Route path="/detail/:id">
-          <Detail shoes={shoes} />
+          <inventoryContext.Provider value={inventory}>
+            <Detail shoes={shoes} inventory={inventory} setInventory={setInventory} />
+          </inventoryContext.Provider>
         </Route>
       </Switch>
 
