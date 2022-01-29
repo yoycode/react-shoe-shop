@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { combineReducers, createStore } from 'redux'
 
 let initState = [{
   id: 0,
@@ -16,11 +16,17 @@ let initState = [{
 }, {
   id: 1,
   name: 'cooler shoes',
-  quan: 23
+  quan: 3
 }]
 
 function reducer(state = initState, action) {
-  if (action.type === 'inc') {
+
+  if (action.type === 'addItem') {
+    let copy = [...state];
+    // 만약 id가 같은 상품이 있으면 추가하지말고 수량만 추가해주세요 라는 로직도 추가 가능 
+    copy.push(action.payload);
+    return copy;
+  } else if (action.type === 'inc') {
     let copy = [...state];  // 완벽한 독립적인 copy본이 생김
     copy[0].quan++;
     return copy
@@ -32,7 +38,18 @@ function reducer(state = initState, action) {
     return state
   }
 }
-let store = createStore(reducer);
+
+// 그런데 이렇게 여러 컴포넌트에서 사용되지 않을 경우에는 redux store에 굳이 저장할 필요 없음 
+let initAlert = true;
+function reducer2(state = initAlert, action) {  // 여기에 그냥 initAlert대신 true 넣어줄 수도 있음 
+  if (action.type === 'close') {
+    state = false;
+  }
+  return state;
+}
+
+// let store = createStore(reducer);
+let store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>

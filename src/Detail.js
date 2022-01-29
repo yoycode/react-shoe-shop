@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { inventoryContext } from './App'
 import { Nav } from 'react-bootstrap'
+import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group'
 import './Detail.css';
 
@@ -62,7 +63,11 @@ const Detail = (props) => {
           <p>{item.content}</p>
           <p>{item.price}</p>
           <Info inventory={props.inventory}></Info>
-          <button className="btn btn-danger" onClick={() => { props.setInventory([9, 10, 12]) }}>주문하기</button>
+          <button className="btn btn-danger" onClick={() => {
+            props.setInventory([9, 10, 12])
+            props.dispatch({ type: 'addItem', payload: { id: 2, name: 'new shoes', quan: 4 } })
+            history.push('/cart')
+          }}>주문하기</button>
           <button className="btn btn-danger" onClick={() => {
             history.goBack();
           }}>뒤로가기</button>
@@ -70,7 +75,7 @@ const Detail = (props) => {
       </div>
 
 
-      <Nav className="mt-5" class-fill variant="tabs" defaultActiveKey="link-0">
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
         <Nav.Item>
           <Nav.Link eventKey="link-0" onClick={() => { setTab(0); setSwitchTransition(false) }}>Active1</Nav.Link>
         </Nav.Item>
@@ -114,4 +119,13 @@ function Info(props) {
   )
 }
 
-export default Detail;
+
+function storeToProps(state) {
+  return {
+    state: state.reducer,
+    openAlert: state.reducer2,
+  }
+}
+
+// export default Cart;
+export default connect(storeToProps)(Detail)
