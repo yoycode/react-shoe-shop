@@ -22,7 +22,10 @@ const Cart = (props) => {
                   <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.quan}</td>
-                  <td>-</td>
+                  <td>
+                    <button onClick={() => { props.dispatch({ type: 'inc' }) }}> + </button>
+                    <button onClick={() => { props.dispatch({ type: 'dec' }) }}> - </button>
+                  </td>
                 </tr>
               )
             })
