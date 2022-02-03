@@ -1,5 +1,5 @@
 import { connect, useSelector, useDispatch } from 'react-redux';
-import React from 'react';
+import React, { useEffect, memo } from 'react';
 import { Table } from 'react-bootstrap'
 
 const Cart = (props) => {
@@ -27,8 +27,8 @@ const Cart = (props) => {
                   <td>{item.name}</td>
                   <td>{item.quan}</td>
                   <td>
-                    <button onClick={() => { dispatch({ type: 'inc' }) }}> + </button>
-                    <button onClick={() => { dispatch({ type: 'dec' }) }}> - </button>
+                    <button onClick={() => { dispatch({ type: 'inc', payload: item.id }) }}> + </button>
+                    <button onClick={() => { dispatch({ type: 'dec', payload: item.id }) }}> - </button>
                   </td>
                 </tr>
               )
@@ -44,9 +44,28 @@ const Cart = (props) => {
           </div>)
           : null
       }
+
+      <Parent name="yoy12" age="28" />
     </div>
   );
 };
+
+function Parent(props) {
+  return (
+    <div>
+      <Child1 name={props.name} />
+      <Child2 age={props.age} />
+    </div>
+  )
+}
+function Child1() {
+  useEffect(() => { console.log('렌더링됨1') });
+  return <div>1111</div>
+}
+let Child2 = memo(function () {
+  useEffect(() => { console.log('렌더링됨2') });
+  return <div>2222</div>
+});
 
 // // store안에 있던 데이터를 가져와서 props로 return 해주는 함수 
 // function storeToProps(state) {

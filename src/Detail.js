@@ -65,7 +65,7 @@ const Detail = (props) => {
           <Info inventory={props.inventory}></Info>
           <button className="btn btn-danger" onClick={() => {
             props.setInventory([9, 10, 12])
-            props.dispatch({ type: 'addItem', payload: { id: 2, name: 'new shoes', quan: 4 } })
+            props.dispatch({ type: 'addItem', payload: { id: item.id, name: item.title, quan: 1 } })
             history.push('/cart')
           }}>주문하기</button>
           <button className="btn btn-danger" onClick={() => {
@@ -91,6 +91,8 @@ const Detail = (props) => {
         <TabContent tab={tab} setSwitchTransition={setSwitchTransition} />
       </CSSTransition>
 
+      <TabContent2 tab={tab} setSwitchTransition={setSwitchTransition} />
+
     </div >
   );
 };
@@ -108,6 +110,19 @@ function TabContent(props) {
   } else if (props.tab === 2) {
     return <div> 2번째 내용입니다</div>
   }
+}
+
+function TabContent2(props) {
+  var tabUI = {
+    0: <p>상품정보</p>,
+    1: <p>배송정보</p>,
+    2: <p>환불약관</p>,
+  }
+  return (
+    <div>
+      {tabUI[props.tab]}
+    </div>
+  )
 }
 
 

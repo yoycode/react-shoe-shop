@@ -23,16 +23,22 @@ function reducer(state = initState, action) {
 
   if (action.type === 'addItem') {
     let copy = [...state];
-    // 만약 id가 같은 상품이 있으면 추가하지말고 수량만 추가해주세요 라는 로직도 추가 가능 
-    copy.push(action.payload);
-    return copy;
+    // 만약 id가 같은 상품이 있으면 추가하지말고 수량만 추가
+    let found = state.findIndex((x) => { return x.id === action.payload.id }) // 있으면 index, 없으면 -1
+    if (found >= 0) {
+      copy[found].quan++;
+      return copy;
+    } else {
+      copy.push(action.payload);
+      return copy;
+    }
   } else if (action.type === 'inc') {
     let copy = [...state];  // 완벽한 독립적인 copy본이 생김
-    copy[0].quan++;
+    copy[action.payload].quan++;
     return copy
   } else if (action.type === 'dec') {
     let copy = [...state];
-    copy[0].quan--;
+    copy[action.payload].quan--;
     return copy
   } else {
     return state
